@@ -1,0 +1,43 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "pipeline": {
+    // Does production builds
+    "build": {
+      "dependsOn": ["^build", "clean", "build:esm", "build:types"],
+      "outputs": ["dist/**", "build/**"]
+    },
+
+    // These build scripts are common in our library packages
+    "build:esm": {
+      "dependsOn": ["clean"],
+      "outputs": ["dist/**/*.js", "dist/**/*.js.map"]
+    },
+    "build:types": {
+      // The Typescript compiler will fail if upstream dependencies aren't built first
+      "dependsOn": ["^build", "clean"],
+      "outputs": ["dist/**/*.d.ts", "dist/**/*.d.ts.map"]
+    },
+
+    // Clean build output
+    "clean": {
+      "dependsOn": [],
+      "cache": false
+    },
+
+    // Start a dev server for an app or a library in watch mode
+    "start": {
+      "dependsOn": ["^build", "start:esm", "start:types"],
+      "cache": false,
+      "persistent": true
+    },
+
+    // These start scripts for watch mode are common in our library packages
+    "start:esm": {
+      "dependsOn": ["clean"]
+    },
+    "start:types": {
+      // The Typescript compiler will fail if upstream dependencies aren't built first
+      "dependsOn": ["^build", "clean"]
+    }
+  }
+}
