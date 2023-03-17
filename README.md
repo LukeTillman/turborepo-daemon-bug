@@ -30,6 +30,13 @@ lib-a:build:types:
 lib-a:build:types: > lib-a@0.1.0 build:types
 lib-a:build:types: > tsc
 lib-a:build:types:
+
+ Tasks:    3 successful, 3 total
+Cached:    2 cached, 3 total
+  Time:    520ms
+
+$ ls lib-a/dist
+index.d.ts     index.d.ts.map index.js       index.js.map
 ```
 
 And the `dist` folder in `lib-a` will have the build output. When the bug happens, you'll see output like this instead:
@@ -57,6 +64,13 @@ lib-a:build:esm: > lib-a@0.1.0 build:esm
 lib-a:build:esm: > swc ./src -d ./dist --config-file ../.swcrc
 lib-a:build:esm:
 lib-a:build:esm: Successfully compiled: 1 file with swc (6.36ms)
+
+ Tasks:    3 successful, 3 total
+Cached:    2 cached, 3 total
+  Time:    320ms
+
+$ ls lib-a/dist
+ls: lib-a/dist: No such file or directory
 ```
 
 The "skipping cache check" message is the one that indicates you've likely triggered the bug. If you check the `dist` folder after seeing that message, you'll see it's missing/doesn't exist.
