@@ -74,3 +74,36 @@ ls: lib-a/dist: No such file or directory
 ```
 
 The "skipping cache check" message is the one that indicates you've likely triggered the bug. If you check the `dist` folder after seeing that message, you'll see it's missing/doesn't exist.
+
+You'll also sometimes see only one of the build tasks with the "skipping cache check" message, which results in some of the build output being present, but some of it being missing:
+
+```
+$ turbo run build --filter=lib-a
+• Packages in scope: lib-a
+• Running build in 1 packages
+• Remote caching disabled
+lib-a:clean: cache bypass, force executing 3d74ace97cfb7408
+lib-a:clean:
+lib-a:clean: > lib-a@0.1.0 clean
+lib-a:clean: > rimraf dist/
+lib-a:clean:
+lib-a:build:esm: Skipping cache check for lib-a#build:esm, outputs have not changed since previous run.
+lib-a:build:esm: cache hit, replaying output 08bcd66d0c350484
+lib-a:build:esm:
+lib-a:build:esm: > lib-a@0.1.0 build:esm
+lib-a:build:esm: > swc ./src -d ./dist --config-file ../.swcrc
+lib-a:build:esm:
+lib-a:build:esm: Successfully compiled: 1 file with swc (35.74ms)
+lib-a:build:types: cache hit, replaying output 211242b9767b916c
+lib-a:build:types:
+lib-a:build:types: > lib-a@0.1.0 build:types
+lib-a:build:types: > tsc
+lib-a:build:types:
+
+ Tasks:    3 successful, 3 total
+Cached:    2 cached, 3 total
+  Time:    338ms
+
+$ ls lib-a/dist
+index.d.ts     index.d.ts.map
+```
