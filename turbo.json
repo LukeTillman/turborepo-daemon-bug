@@ -10,12 +10,12 @@
     // These build scripts are common in our library packages
     "build:esm": {
       "dependsOn": ["clean"],
-      "outputs": ["dist/**/*.js", "dist/**/*.js.map"]
+      "outputs": ["dist/esm/**"]
     },
     "build:types": {
       // The Typescript compiler will fail if upstream dependencies aren't built first
       "dependsOn": ["^build", "clean"],
-      "outputs": ["dist/**/*.d.ts", "dist/**/*.d.ts.map"]
+      "outputs": ["dist/types/**"]
     },
 
     // Clean build output

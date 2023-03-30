@@ -1,11 +1,12 @@
 {
   "name": "lib-a",
   "version": "0.1.0",
-  "main": "dist/index.js",
+  "main": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
   "private": true,
   "scripts": {
     "clean": "rimraf dist/",
-    "build:esm": "swc ./src -d ./dist --config-file ../.swcrc",
+    "build:esm": "swc ./src -d ./dist/esm --config-file ../.swcrc",
     "build:types": "tsc",
     "start:esm": "npm run build:esm -- --watch",
     "start:types": "npm run build:types -- --watch"
