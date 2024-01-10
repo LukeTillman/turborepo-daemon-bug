@@ -6,8 +6,6 @@
   "scripts": {
     "clean": "rimraf dist/",
     "build:esm": "swc ./src -d ./dist --config-file ../.swcrc",
-    "build:types": "tsc",
-    "start:esm": "npm run build:esm -- --watch",
-    "start:types": "npm run build:types -- --watch"
+    "build:types": "tsc"
   }
 }

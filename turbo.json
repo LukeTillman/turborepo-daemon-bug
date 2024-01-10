@@ -22,22 +22,6 @@
     "clean": {
       "dependsOn": [],
       "cache": false
-    },
-
-    // Start a dev server for an app or a library in watch mode
-    "start": {
-      "dependsOn": ["^build", "start:esm", "start:types"],
-      "cache": false,
-      "persistent": true
-    },
-
-    // These start scripts for watch mode are common in our library packages
-    "start:esm": {
-      "dependsOn": ["clean"]
-    },
-    "start:types": {
-      // The Typescript compiler will fail if upstream dependencies aren't built first
-      "dependsOn": ["^build", "clean"]
     }
   }
 }
